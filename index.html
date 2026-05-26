@@ -3,12 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="styles/main.css">
-    
+    <title>PetCare Planner</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
-    <h1>Bienvenido</h1>
-    <script type="module" src="script/main.js"></script>
+
+    <header>
+        <nav>
+            <a href="index.html"><strong>PetCare Planner</strong></a>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="pages/agenda.html">Agenda de Cuidados</a></li>
+                <li><a href="pages/perfil.html">Perfil de Mascota</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="bienvenida">
+            <p class="eyebrow">Proyecto Integrador · Grupo 9</p>
+            <h1 id="page-title">Bienvenido a <span>PetCare Planner</span></h1>
+            
+            <p class="intro">
+                La plataforma integral para organizar las tareas, turnos médicos y el bienestar general de tu mascota de forma simple.
+            </p>
+
+            <fieldset id="hero-actions" style="border: none; padding: 0; margin: 0;">
+                <button id="btn-nueva-tarea" class="primary-action" type="button">Nueva Tarea</button>
+                <button id="toggle-theme" class="secondary-action" type="button" aria-pressed="false">
+                    Activar modo oscuro
+                </button>
+            </fieldset>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 PetCare Planner - Proyecto Integrador - Grupo 9</p>
+    </footer>
+
+    <script type="module" src="assets/js/main.js"></script>
 </body>
 </html>
