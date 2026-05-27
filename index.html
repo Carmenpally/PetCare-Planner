@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
-
     <header>
         <nav>
             <a href="index.html"><strong>PetCare Planner</strong></a>
@@ -23,17 +22,40 @@
         <section id="bienvenida">
             <p class="eyebrow">Proyecto Integrador · Grupo 9</p>
             <h1 id="page-title">Bienvenido a <span>PetCare Planner</span></h1>
-            
+
             <p class="intro">
                 La plataforma integral para organizar las tareas, turnos médicos y el bienestar general de tu mascota de forma simple.
             </p>
 
-            <fieldset id="hero-actions" style="border: none; padding: 0; margin: 0;">
+            <fieldset id="hero-actions">
                 <button id="btn-nueva-tarea" class="primary-action" type="button">Nueva Tarea</button>
                 <button id="toggle-theme" class="secondary-action" type="button" aria-pressed="false">
                     Activar modo oscuro
                 </button>
             </fieldset>
+
+            <form id="task-form" class="task-form" aria-label="Formulario para agregar nueva tarea">
+                <div class="form-field form-field-large">
+                    <label for="task-name">Cuidado</label>
+                    <input id="task-name" name="task-name" type="text" placeholder="Ej: comida, paseo, medicación">
+                </div>
+
+                <div class="form-field">
+                    <label for="task-date">Fecha</label>
+                    <input id="task-date" name="task-date" type="date">
+                </div>
+
+                <div class="form-field">
+                    <label for="task-priority">Prioridad</label>
+                    <select id="task-priority" name="task-priority">
+                        <option value="normal">Normal</option>
+                        <option value="alta">Alta</option>
+                    </select>
+                </div>
+
+                <button class="primary-action" type="submit">Guardar tarea</button>
+                <p id="form-message" class="form-message" role="status"></p>
+            </form>
         </section>
 
         <aside class="preview-card" aria-labelledby="preview-title">
@@ -63,9 +85,6 @@
                         <span class="pet-whisker pet-whisker-left pet-whisker-bottom"></span>
                         <span class="pet-whisker pet-whisker-right pet-whisker-top"></span>
                         <span class="pet-whisker pet-whisker-right pet-whisker-bottom"></span>
-                        <span class="pet-bow pet-bow-left" aria-hidden="true"></span>
-                        <span class="pet-bow pet-bow-right" aria-hidden="true"></span>
-                        <span class="pet-bow pet-bow-center" aria-hidden="true"></span>
                     </div>
 
                     <div class="pet-body">
@@ -81,19 +100,22 @@
         </aside>
 
         <section id="panel-tareas">
-            <h2>Próximas Tareas Pendientes</h2>
+            <h2>Tareas Pendientes</h2>
             <p>Controlá el estado diario de los cuidados de tu mascota:</p>
-            
+
             <article id="tareas-vencidas">
                 <h3>Tareas Vencidas</h3>
+                <ul class="task-list" data-task-group="vencidas"></ul>
             </article>
 
             <article id="tareas-hoy">
                 <h3>Tareas de Hoy</h3>
+                <ul class="task-list" data-task-group="hoy"></ul>
             </article>
 
             <article id="tareas-futuras">
                 <h3>Tareas Futuras</h3>
+                <ul class="task-list" data-task-group="futuras"></ul>
             </article>
         </section>
     </main>
@@ -102,6 +124,6 @@
         <p>&copy; 2026 PetCare Planner - Proyecto Integrador - Grupo 9</p>
     </footer>
 
-    <script type="module" src="assets/js/main.js"></script>
+    <script src="assets/js/main.js"></script>
 </body>
 </html>
