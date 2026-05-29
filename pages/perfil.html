@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil de Mascota - PetCare Planner</title>
     <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/perfil.css">
 </head>
 <body>
     <header>
@@ -19,14 +20,90 @@
     </header>
 
     <main>
-        <section id="perfil-seccion">
-            <h1>Perfil de la Mascota</h1>
-            <p>Configurá los datos principales de tu compañero: nombre, edad, peso y especie.</p>
+        <section id="perfil-seccion" class="registro-layout">
+            
+            <section class="panel-formulario">
+                <h2>Registrar Mascota</h2>
+                
+                <form id="form-registro-mascota" class="pet-form">
+                    <fieldset class="form-group-fieldset">
+                        <legend class="visually-hidden">Datos de la nueva mascota</legend>
+                        
+                        <div class="form-field">
+                            <label for="pet-nombre">Nombre</label>
+                            <input type="text" id="pet-nombre" name="pet-nombre" required>
+                        </div>
+
+                        <div class="form-field">
+                            <label for="pet-especie">Especie</label>
+                            <select id="pet-especie" name="pet-especie" required>
+                                <option value="" disabled selected>Seleccionar especie</option>
+                                <option value="perro">Perro</option>
+                                <option value="gato">Gato</option>
+                                <option value="exotico">Exótico / Otro</option>
+                            </select>
+                        </div>
+
+                        <div class="form-field">
+                            <label for="pet-notas">Notas médicas / Algunas notas</label>
+                            <textarea id="pet-notas" name="pet-notas" rows="3" placeholder="Ej. qué comida come, alergias, cuidados especiales"></textarea>
+                        </div>
+
+                        <div class="form-field">
+                            <label for="pet-nacimiento">Fecha de Nacimiento</label>
+                            <input type="date" id="pet-nacimiento" name="pet-nacimiento" required>
+                        </div>
+
+                        <div class="form-field">
+                            <label for="pet-imagen">Agregar Imagen (URL)</label>
+                            <input type="url" id="pet-imagen" name="pet-imagen" placeholder="https://ejemplo.com/foto.jpg">
+                        </div>
+
+                        <button type="submit" class="primary-action btn-submit-registro">Agregar Mascota</button>
+                    </fieldset>
+                </form>
+            </section>
+
+            <aside class="panel-lista-mascotas">
+                <h2>Tus compañeros registrados</h2>
+                
+                <ul id="lista-mascotas-container" class="mascotas-grid">
+                    
+                    <li>
+                        <article class="mascota-card">
+                            <figure class="mascota-avatar">
+                                <span aria-hidden="true">🐾</span>
+                            </figure>
+                            <section class="mascota-info">
+                                <h3>Luna</h3>
+                                <p>Especie: Gato</p>
+                                <p>Edad: 3 años</p>
+                            </section>
+                        </article>
+                    </li>
+
+                    <li>
+                        <article class="mascota-card">
+                            <figure class="mascota-avatar">
+                                <span aria-hidden="true">🐾</span>
+                            </figure>
+                            <section class="mascota-info">
+                                <h3>Max</h3>
+                                <p>Especie: Perro</p>
+                                <p>Edad: 5 años</p>
+                            </section>
+                        </article>
+                    </li>
+
+                </ul>
+            </aside>
+
         </section>
     </main>
 
     <footer>
         <p>&copy; 2026 PetCare Planner - Proyecto Integrador - Grupo 9</p>
     </footer>
+    <script src="../assets/js/main.js"></script>
 </body>
 </html>

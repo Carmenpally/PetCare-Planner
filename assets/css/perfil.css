@@ -1,0 +1,159 @@
+/* =========================================
+   ESTILOS ESPECÍFICOS: REGISTRO DE MASCOTAS
+   ========================================= */
+
+/* Layout a dos columnas según el boceto */
+.registro-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: 32px;
+    align-items: start;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+/* Paneles compartidos */
+.panel-formulario,
+.panel-lista-mascotas {
+    background: var(--panel-transparente);
+    border: 1px solid var(--linea);
+    border-radius: 26px;
+    padding: 34px;
+    box-shadow: var(--sombra);
+}
+
+.panel-formulario h2,
+.panel-lista-mascotas h2 {
+    margin-bottom: 24px;
+    font-size: 24px;
+    color: var(--texto);
+}
+
+/* Ajustes del Formulario */
+.pet-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group-fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Clase de utilidad para ocultar texto accesible */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.pet-form textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 12px;
+    border: 1px solid var(--linea);
+    border-radius: 12px;
+    color: var(--texto);
+    background: var(--panel);
+    font-family: inherit;
+    resize: vertical;
+}
+
+.pet-form textarea:focus {
+    outline: 2px solid var(--verde);
+    outline-offset: -1px;
+}
+
+.btn-submit-registro {
+    margin-top: 10px;
+    align-self: flex-start;
+}
+
+/* Tarjetas de compañeros registrados (Ahora como lista) */
+.mascotas-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    list-style: none; /* Quitamos los puntos de la lista */
+    padding: 0;
+    margin: 0;
+}
+
+.mascota-card {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 16px;
+    border: 1px solid var(--linea);
+    border-radius: 20px;
+    background: var(--panel-suave);
+    transition: transform 0.2s ease;
+}
+
+.mascota-card:hover {
+    transform: translateY(-2px);
+}
+
+/* Circulo para la imagen de la mascota usando <figure> */
+.mascota-avatar {
+    width: 70px;
+    height: 70px;
+    margin: 0; /* Reset del margen por defecto de figure */
+    border-radius: 50%;
+    border: 2px solid var(--linea);
+    background: var(--panel);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.mascota-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.mascota-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.mascota-info h3 {
+    margin: 0;
+    font-size: 18px;
+    color: var(--rosa-fuerte);
+}
+
+.mascota-info p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--texto-suave);
+    font-weight: 600;
+}
+
+/* Responsive para la vista de registro */
+@media (max-width: 860px) {
+    .registro-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .btn-submit-registro {
+        align-self: stretch;
+    }
+}
