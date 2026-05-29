@@ -1,5 +1,5 @@
 /* =========================================
-   ESTILOS ESPECÍFICOS: REGISTRO DE MASCOTAS
+    ESTILOS ESPECÍFICOS: REGISTRO DE MASCOTAS
    ========================================= */
 
 /* Layout a dos columnas según el boceto */
@@ -35,7 +35,40 @@
 .pet-form {
     display: flex;
     flex-direction: column;
+    border-radius: 12px;
 }
+
+.pet-form #pet-nombre,
+.pet-form #pet-edad,
+.pet-form #pet-especie,
+.pet-form #pet-nacimiento {
+    padding: 9px 12px;
+    border: 1px solid var(--linea);
+    border-radius: 12px;
+    background: var(--panel);
+    color: var(--texto);
+}
+
+
+/* Asegurar que el input de peso tenga el mismo diseño que el resto */
+.pet-form input[type="number"] {
+    width: 100%;
+    min-width: 0;
+    min-height: 42px;
+    padding: 9px 12px;
+    border: 1px solid var(--linea);
+    border-radius: 12px;
+    color: var(--texto);
+    background: var(--panel);
+}
+
+/* Opcional: Quitar las flechas (spinners) nativas del input de número para que se vea más limpio */
+.pet-form input[type="number"]::-webkit-inner-spin-button,
+.pet-form input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 
 .form-group-fieldset {
     display: flex;
@@ -46,6 +79,33 @@
     margin: 0;
 }
 
+/* Estilizar el input de archivo para que coincida con el formulario */
+.pet-form input[type="file"] {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px dashed var(--verde); /* Un borde punteado queda muy bien para subida de archivos */
+    border-radius: 12px;
+    color: var(--texto);
+    background: var(--panel-suave);
+    cursor: pointer;
+}
+
+/* Darle estilo al botón nativo de "Elegir archivo" que viene adentro del input */
+.pet-form input[type="file"]::file-selector-button {
+    background-color: var(--verde);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    margin-right: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+}
+
+.pet-form input[type="file"]::file-selector-button:hover {
+    background-color: var(--rosa-fuerte); /* Cambia de color al pasar el mouse */
+}
 /* Clase de utilidad para ocultar texto accesible */
 .visually-hidden {
     position: absolute;

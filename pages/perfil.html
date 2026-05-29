@@ -55,8 +55,13 @@
                         </div>
 
                         <div class="form-field">
-                            <label for="pet-imagen">Agregar Imagen (URL)</label>
-                            <input type="url" id="pet-imagen" name="pet-imagen" placeholder="https://ejemplo.com/foto.jpg">
+                            <label for="pet-peso">Peso (kg)</label>
+                            <input type="number" id="pet-peso" name="pet-peso" step="0.1" min="0" placeholder="Ej: 4.2" required>
+                        </div>
+
+                        <div class="form-field">
+                            <label for="pet-imagen">Agregar Foto</label>
+                            <input type="file" id="pet-imagen" name="pet-imagen" accept="image/*">
                         </div>
 
                         <button type="submit" class="primary-action btn-submit-registro">Agregar Mascota</button>
