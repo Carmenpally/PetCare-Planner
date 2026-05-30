@@ -30,7 +30,7 @@ El objetivo del proyecto es aplicar los contenidos del módulo de Web Estática 
 
 - Navegación entre tres documentos HTML.
 - Diseño responsive para desktop y mobile.
-- Modo oscuro con preferencia guardada.
+- Modo Oscuro Global - Preferencia de tema claro/oscuro que el usuario puede alternar y que se recuerda automáticamente al navegar.
 - Formulario para agregar tareas de cuidado.
 - Clasificación de tareas en vencidas, de hoy y futuras.
 - Persistencia de tareas mediante localStorage.
