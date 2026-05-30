@@ -39,6 +39,15 @@ Sección Mascotas (Alizon Gamboa):
 - Desarrollar e integrar la funcionalidad para eliminar registros de mascotas del sistema.
 - Diseñar y adaptar los estilos CSS específicos para los botones y componentes de edición y eliminación.
 
+Sección Agenda (Carmen Pally):
+- Revisar la estructura semántica inicial de `agenda.html`
+- Mejoras de accesibilidad.
+- Asistencia en la conexión del formulario, con la memoria del navegador para guardar el array de tareas.
+- Modularización del código JavaScript
+- Uso del objeto Date de JavaScript para comparar fechas y clasificar tareas "vencidas", "hoy" y "futuras".
+
+
+
 ## Ejemplos de prompts utilizados
 
 Algunas consultas realizadas fueron:
@@ -63,6 +72,8 @@ Se reviso la pagina de inicio para que tenga una estructura mas clara y semantic
 Se trabajo sobre el archivo `assets/css/styles.css` para mejorar la estetica general, el modo oscuro, la adaptacion responsive y la distribucion de los bloques principales. Tambien se corrigieron problemas visuales del bloque de bienvenida, la tarjeta de mascota y el formulario de tareas.
 
 Se actualizaron los estilos para dar soporte visual a las nuevas acciones de gestión de mascotas, asegurando que todos los campos a completar y todos los botones mantengan una coherencia y sigan con la estética general del sitio.
+
+La IA me recomendó agregar el atributo aria-label en mi etiqueta <form> para asegurar que el formulario de la agenda cumpliera con las buenas prácticas básicas de accesibilidad exigidas por la consigna.
 
 ### JavaScript
 
@@ -90,6 +101,8 @@ El uso de IA ayudo a comprender mejor:
 ## Limitaciones y revision humana
 
 No se aceptaron todas las respuestas de la IA automaticamente. Algunas propuestas necesitaron correcciones porque no se veian bien visualmente o no coincidian con lo que se buscaba para el proyecto.
+
+Por ejemplo uno de los desafíos fue que la IA, por defecto, sugería agrupar todo el código en un solo archivo genérico (como main.js). Como nuestro grupo definió una arquitectura modular (un archivo JS por página), tuvimos que redirigir constantemente a la IA para que respetara nuestra estructura y no rompiera lo que ya teníamos armado.
 
 El codigo fue probado visualmente en el navegador y revisado antes de subirlo a la rama correspondiente. La IA fue utilizada como apoyo, pero el resultado final fue decidido y validado por integrantes del proyecto.
 
