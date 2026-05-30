@@ -67,9 +67,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p>Edad: ${calcularEdad(mascota.nacimiento)}</p>
                         <p>Peso: ${mascota.peso} kg</p>
                     </section>
-                    <button type="button" class="btn-editar-mascota" data-id="${mascota.id}">
-                        Editar
-                    </button>
+                    <div class="mascota-acciones">
+                        <button type="button" class="btn-editar-mascota" data-id="${mascota.id}">
+                            Editar
+                        </button>
+                        <button type="button" class="btn-eliminar-mascota" data-id="${mascota.id}">
+                            Eliminar
+                        </button>
+                    </div>
                 </article>
             `;
 
@@ -78,23 +83,40 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     listaMascotasContainer.addEventListener('click', (evento) => {
+        if (evento.target.classList.contains('btn-eliminar-mascota')) {
+            const idMascota = Number(evento.target.dataset.id);
+            const confirmar = confirm("¿Estás seguro de que quieres eliminar a este compañero?");
+            
+            if (confirmar) {
+                listaMascotas = listaMascotas.filter((mascota) => mascota.id !== idMascota);
+                
+                guardarMascotas();
+                renderMascotas();
+                
+                if (idMascotaEditando === idMascota) {
+                    limpiarFormulario();
+                }
+            }
+            return; 
+        }
+
         const botonEditar = evento.target.closest('.btn-editar-mascota');
-        if (!botonEditar) return;
+        if (botonEditar) {
+            const idMascota = Number(botonEditar.dataset.id);
+            const mascota = listaMascotas.find((item) => item.id === idMascota);
+            if (!mascota) return;
 
-        const idMascota = Number(botonEditar.dataset.id);
-        const mascota = listaMascotas.find((item) => item.id === idMascota);
-        if (!mascota) return;
+            document.getElementById('pet-nombre').value = mascota.nombre;
+            document.getElementById('pet-especie').value = mascota.especie;
+            document.getElementById('pet-notas').value = mascota.notas;
+            document.getElementById('pet-nacimiento').value = mascota.nacimiento;
+            document.getElementById('pet-peso').value = mascota.peso;
 
-        document.getElementById('pet-nombre').value = mascota.nombre;
-        document.getElementById('pet-especie').value = mascota.especie;
-        document.getElementById('pet-notas').value = mascota.notas;
-        document.getElementById('pet-nacimiento').value = mascota.nacimiento;
-        document.getElementById('pet-peso').value = mascota.peso;
-
-        fotoMascotaBase64 = mascota.foto || "";
-        idMascotaEditando = idMascota;
-        botonGuardarMascota.textContent = "Guardar cambios";
-        formMascota.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            fotoMascotaBase64 = mascota.foto || "";
+            idMascotaEditando = idMascota;
+            botonGuardarMascota.textContent = "Guardar cambios";
+            formMascota.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
     });
 
     inputImagen.addEventListener('change', (evento) => {
