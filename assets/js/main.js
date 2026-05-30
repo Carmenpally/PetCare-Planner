@@ -4,7 +4,6 @@ const taskDate = document.querySelector("#task-date");
 const taskPriority = document.querySelector("#task-priority");
 const formMessage = document.querySelector("#form-message");
 const newTaskButton = document.querySelector("#btn-nueva-tarea");
-const themeButton = document.querySelector("#toggle-theme");
 const liveStatus = document.querySelector("#live-status");
 
 const storageKeys = {
@@ -81,13 +80,6 @@ document.addEventListener("click", (event) => {
     renderTasks();
 });
 
-themeButton.addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode");
-    const isDarkMode = document.body.classList.contains("dark-mode");
-
-    localStorage.setItem(storageKeys.theme, isDarkMode ? "dark" : "light");
-    updateThemeButton();
-});
 
 function loadTasks() {
     const savedTasks = JSON.parse(localStorage.getItem(storageKeys.tasks));
@@ -167,12 +159,6 @@ function showMessage(message) {
     }, 2500);
 }
 
-function updateThemeButton() {
-    const isDarkMode = document.body.classList.contains("dark-mode");
-
-    themeButton.textContent = isDarkMode ? "Activar modo claro" : "Activar modo oscuro";
-    themeButton.setAttribute("aria-pressed", String(isDarkMode));
-}
 
 function getDateWithOffset(days) {
     const date = new Date();
@@ -181,11 +167,7 @@ function getDateWithOffset(days) {
 }
 
 function init() {
-    if (localStorage.getItem(storageKeys.theme) === "dark") {
-        document.body.classList.add("dark-mode");
-    }
 
-    updateThemeButton();
     renderTasks();
     saveTasks();
 }
