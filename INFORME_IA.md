@@ -15,12 +15,13 @@ En mi caso, el uso principal de IA estuvo relacionado con la seccion de **Inicio
 
 ## Herramienta utilizada
 
-Se utilizo ChatGPT/Codex como asistente para revisar archivos del proyecto, proponer mejoras y explicar pasos de trabajo con Git y Markdown.
+Se utilizo ChatGPT/Codex y Gemini Pro como asistente para revisar archivos del proyecto, proponer mejoras y explicar pasos de trabajo con Git y Markdown.
 
 ## Partes del proyecto en las que se uso IA
 
 La IA se utilizo especialmente para:
 
+Sección Inicio (Julieta Rodriguez):
 - Revisar la estructura inicial de `index.html`.
 - Corregir problemas de codificacion en textos con acentos.
 - Mejorar la organizacion visual del inicio.
@@ -31,6 +32,13 @@ La IA se utilizo especialmente para:
 - Revisar mensajes de Git y organizar commits.
 - Crear este informe en formato Markdown.
 
+Sección Mascotas (Alizon Gamboa):
+- Revisar la estructura inicial de `perfil.html`
+- Mejorar la parte visual con los estilos correspondientes.
+- Implementar la lógica en JavaScript para la funcionalidad de edición de datos de las mascotas.
+- Desarrollar e integrar la funcionalidad para eliminar registros de mascotas del sistema.
+- Diseñar y adaptar los estilos CSS específicos para los botones y componentes de edición y eliminación.
+
 ## Ejemplos de prompts utilizados
 
 Algunas consultas realizadas fueron:
@@ -39,6 +47,11 @@ Algunas consultas realizadas fueron:
 - "Necesito mejorar el modo oscuro porque algunos textos no tienen buen contraste. ¿Podés sugerir ajustes de colores para que la interfaz sea legible y accesible?"
 - "Necesito organizar mis commits con Conventional Commits. ¿Qué mensajes puedo usar para separar cambios de HTML, CSS, JavaScript y documentación?"
 - "Necesito usar `localStorage` de forma útil en el proyecto. ¿Qué datos del inicio tendría sentido guardar para que la funcionalidad esté relacionada con la idea de PetCare Planner?"
+
+- "Necesito agregar un boton de editar y eliminar mascota en mi pagina, que ajustes necesarios debo realizar en mis archivos de perfil.html, perfil.css y prefil.js"
+- "Actualmente la pagina index.html tiene el modo oscuro y al cambiar de pagina a la de registrar mascota o de agenda no se respeta este cambio, necesito que me digas que es lo que deberia hacer para que se respete el cambio de modo oscuro cuando cambio de paginas"
+
+
 ## Cambios realizados con ayuda de IA
 
 ### HTML
@@ -49,9 +62,13 @@ Se reviso la pagina de inicio para que tenga una estructura mas clara y semantic
 
 Se trabajo sobre el archivo `assets/css/styles.css` para mejorar la estetica general, el modo oscuro, la adaptacion responsive y la distribucion de los bloques principales. Tambien se corrigieron problemas visuales del bloque de bienvenida, la tarjeta de mascota y el formulario de tareas.
 
+Se actualizaron los estilos para dar soporte visual a las nuevas acciones de gestión de mascotas, asegurando que todos los campos a completar y todos los botones mantengan una coherencia y sigan con la estética general del sitio.
+
 ### JavaScript
 
 Se revisó y mejoró el archivo `assets/js/main.js` para que las interacciones del inicio fueran más útiles y estuvieran relacionadas con la idea del proyecto.
+
+Se programó la lógica necesaria en el archivo de `assets/js/perfil.js` para permitir que las funciones de editar y eliminar operen de manera dinámica, interactuando correctamente con los elementos de la interfaz.
 
 ## Decisiones tomadas por el grupo/persona
 
