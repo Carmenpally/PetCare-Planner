@@ -411,4 +411,21 @@ footer {
         flex-direction: column;
         align-items: flex-start;
     }
+
+    nav ul {
+        flex-direction: column; /* Apila los botones uno debajo del otro */
+        align-items: stretch; 
+        width: 100%;
+        padding-top: 10px;
+    }
+
+    nav {
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 999 !important; /* Obliga al menú a estar siempre por encima del contenido */
+        background: var(--panel-transparente) !important;
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important; /* Soporte extra para que el vidrio borroso funcione en celulares Safari/iPhone */
+    }
 }
+
