@@ -33,6 +33,20 @@ body {
     color: var(--texto);
 }
 
+body.dark-mode { 
+            --fondo: #17231f; 
+            --panel: #20322d; 
+            --panel-transparente: rgba(32, 50, 45, 0.94); 
+            --panel-suave: #2b4039; 
+            --texto: #f8fbf8; 
+            --texto-suave: #d4e2dc; 
+            --rosa: #ffa1b2; 
+            --rosa-fuerte: #ff8094; 
+            --verde: #78d9ac; 
+            --linea: #3e544d; 
+            --sombra: 0 18px 45px rgba(0, 0, 0, 0.28); 
+        }
+
 button,
 input,
 select {
