@@ -1,55 +1,60 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Seleccionar elementos del DOM
     const formMascota = document.getElementById('form-registro-mascota');
     const inputImagen = document.getElementById('pet-imagen');
     const listaMascotasContainer = document.getElementById('lista-mascotas-container');
+    const botonGuardarMascota = formMascota.querySelector('.btn-submit-registro');
 
-    // Variable temporal para guardar la imagen en Base64
     let fotoMascotaBase64 = "";
-
-    // 2. Inicializar el array de mascotas desde localStorage (o vacío si no hay nada)
+    let idMascotaEditando = null;
     let listaMascotas = JSON.parse(localStorage.getItem('mascotas')) || [];
 
-    // 3. Función para calcular la edad a partir de la fecha de nacimiento
     const calcularEdad = (fechaNacimiento) => {
         if (!fechaNacimiento) return "Edad no disponible";
+
         const hoy = new Date();
         const cumpleanos = new Date(fechaNacimiento);
         let edad = hoy.getFullYear() - cumpleanos.getFullYear();
         const mes = hoy.getMonth() - cumpleanos.getMonth();
-        
+
         if (mes < 0 || (mes === 0 && hoy.getDate() < cumpleanos.getDate())) {
             edad--;
         }
-        
+
         if (edad < 1) {
             return "Cachorro";
         }
-        return edad === 1 ? "1 año" : `${edad} años`;
+
+        return edad === 1 ? "1 a\u00f1o" : `${edad} a\u00f1os`;
     };
 
-    // 4. Función para renderizar (dibujar) las mascotas en el panel lateral
+    const guardarMascotas = () => {
+        localStorage.setItem('mascotas', JSON.stringify(listaMascotas));
+    };
+
+    const limpiarFormulario = () => {
+        formMascota.reset();
+        fotoMascotaBase64 = "";
+        idMascotaEditando = null;
+        botonGuardarMascota.textContent = "Agregar Mascota";
+    };
+
     const renderMascotas = () => {
-        // Limpiamos el contenedor para no duplicar los elementos
         listaMascotasContainer.innerHTML = "";
 
         if (listaMascotas.length === 0) {
             listaMascotasContainer.innerHTML = `
                 <li class="no-mascotas-msg" style="text-align: center; color: var(--texto-suave); padding: 20px;">
-                    <p>Aún no tienes compañeros registrados. ¡Agrega el primero!</p>
+                    <p>Aun no tienes companeros registrados. Agrega el primero!</p>
                 </li>
             `;
             return;
         }
 
-        // Recorremos el array y creamos el HTML semántico para cada mascota
         listaMascotas.forEach((mascota) => {
             const li = document.createElement('li');
-            
-            // Si el usuario subió foto, usamos la etiqueta img. Si no, dejamos el emoji por defecto.
-            const avatarContenido = mascota.foto 
+            const avatarContenido = mascota.foto
                 ? `<img src="${mascota.foto}" alt="Foto de ${mascota.nombre}">`
-                : `<span aria-hidden="true">🐾</span>`;
+                : `<span aria-hidden="true">&#128062;</span>`;
 
             li.innerHTML = `
                 <article class="mascota-card">
@@ -62,64 +67,81 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p>Edad: ${calcularEdad(mascota.nacimiento)}</p>
                         <p>Peso: ${mascota.peso} kg</p>
                     </section>
+                    <button type="button" class="btn-editar-mascota" data-id="${mascota.id}">
+                        Editar
+                    </button>
                 </article>
             `;
-            
+
             listaMascotasContainer.appendChild(li);
         });
     };
 
-    // 5. Escuchar el cambio en el input de archivo para convertir la imagen
+    listaMascotasContainer.addEventListener('click', (evento) => {
+        const botonEditar = evento.target.closest('.btn-editar-mascota');
+        if (!botonEditar) return;
+
+        const idMascota = Number(botonEditar.dataset.id);
+        const mascota = listaMascotas.find((item) => item.id === idMascota);
+        if (!mascota) return;
+
+        document.getElementById('pet-nombre').value = mascota.nombre;
+        document.getElementById('pet-especie').value = mascota.especie;
+        document.getElementById('pet-notas').value = mascota.notas;
+        document.getElementById('pet-nacimiento').value = mascota.nacimiento;
+        document.getElementById('pet-peso').value = mascota.peso;
+
+        fotoMascotaBase64 = mascota.foto || "";
+        idMascotaEditando = idMascota;
+        botonGuardarMascota.textContent = "Guardar cambios";
+        formMascota.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
     inputImagen.addEventListener('change', (evento) => {
         const archivo = evento.target.files[0];
-        
+
         if (archivo) {
             const lector = new FileReader();
-            
+
             lector.onload = (e) => {
-                fotoMascotaBase64 = e.target.result; // Guardamos el texto de la imagen
+                fotoMascotaBase64 = e.target.result;
             };
-            
+
             lector.readAsDataURL(archivo);
         }
     });
 
-    // 6. Escuchar el envío del formulario (Submit)
     formMascota.addEventListener('submit', (evento) => {
-        evento.preventDefault(); // Evita que la página se recargue
+        evento.preventDefault();
 
-        // Capturar los valores actualizados de los inputs
         const nombre = document.getElementById('pet-nombre').value.trim();
         const especie = document.getElementById('pet-especie').value;
         const notas = document.getElementById('pet-notas').value.trim();
         const nacimiento = document.getElementById('pet-nacimiento').value;
         const peso = document.getElementById('pet-peso').value;
 
-        // Crear el nuevo objeto mascota
-        const nuevaMascota = {
-            id: Date.now(), // ID único basado en el tiempo
+        const mascotaActualizada = {
+            id: idMascotaEditando || Date.now(),
             nombre,
             especie,
             notas,
             nacimiento,
             peso,
-            foto: fotoMascotaBase64 // Si no seleccionó foto, irá vacío ""
+            foto: fotoMascotaBase64
         };
 
-        // Agregar la nueva mascota al array de la aplicación
-        listaMascotas.push(nuevaMascota);
+        if (idMascotaEditando) {
+            listaMascotas = listaMascotas.map((mascota) => {
+                return mascota.id === idMascotaEditando ? mascotaActualizada : mascota;
+            });
+        } else {
+            listaMascotas.push(mascotaActualizada);
+        }
 
-        // Guardar el array actualizado en localStorage transformándolo a texto JSON
-        localStorage.setItem('mascotas', JSON.stringify(listaMascotas));
-
-        // Actualizar la interfaz visual inmediatamente
+        guardarMascotas();
         renderMascotas();
-
-        // Limpiar el formulario y resetear la variable de la foto
-        formMascota.reset();
-        fotoMascotaBase64 = "";
+        limpiarFormulario();
     });
 
-    // 7. Renderizar las mascotas guardadas apenas cargue la página por primera vez
     renderMascotas();
 });
