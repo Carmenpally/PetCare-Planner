@@ -3,20 +3,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const inputDescripcion = document.querySelector("#descripcion");
     const inputFecha = document.querySelector("#fecha");
     const selectMascota = document.querySelector("#mascota-select");
+    const selectPrioridad = document.querySelector("#prioridad");
+
 
     const storageKey = "petcareTasks";
     let tasks = JSON.parse(localStorage.getItem(storageKey)) || [];
 
     function cargarMascotas() {
         const mascotasGuardadas = JSON.parse(localStorage.getItem('mascotas')) || [];
-        
+
         if (mascotasGuardadas.length === 0) {
             selectMascota.innerHTML = '<option value="" disabled selected>⚠️ Registra una mascota primero</option>';
             return;
         }
 
         selectMascota.innerHTML = '<option value="" disabled selected>Elige a tu compañero...</option>';
-        
+
         mascotasGuardadas.forEach(mascota => {
             const option = document.createElement("option");
             option.value = mascota.nombre;
@@ -42,13 +44,15 @@ document.addEventListener("DOMContentLoaded", () => {
             const categoriaInput = document.querySelector('input[name="categoria"]:checked');
             const categoria = categoriaInput ? categoriaInput.value : "general";
 
+            const prioridad = selectPrioridad ? selectPrioridad.value : "normal";
+
             const formMessage = document.querySelector("#form-message");
 
             if (!nombre || !fecha || !mascotaAsignada) {
                 if (formMessage) {
                     formMessage.textContent = "Por favor completa todos los campos, incluyendo la mascota.";
-                    formMessage.style.color = "var(--rosa-fuerte)"; 
-                    setTimeout(() => formMessage.textContent = "", 3000); 
+                    formMessage.style.color = "var(--rosa-fuerte)";
+                    setTimeout(() => formMessage.textContent = "", 3000);
                 }
                 return;
             }
@@ -58,7 +62,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 name: nombre,
                 date: fecha,
                 categoria: categoria,
-                mascota: mascotaAsignada
+                mascota: mascotaAsignada,
+                priority: prioridad 
             });
 
             saveTasks();
@@ -119,12 +124,16 @@ document.addEventListener("DOMContentLoaded", () => {
                             <div style="display: flex; flex-direction: column; font-size: 0.85rem; color: var(--texto-suave);">
                                 <span style="margin-bottom: 2px;">Para: <span style="font-weight: bold;">${mascotaMostrada}</span></span>
                                 
-                                <div style="display: flex; align-items: center; gap: 6px;">
-                                    <span>${formattedDate}</span>
-                                    <span>·</span>
-                                    <span style="text-transform: capitalize;">${task.categoria}</span>
-                                </div>
+                                
+                                
+                            <div style="display: flex; align-items: center; gap: 6px;">
+                                <span>${formattedDate}</span>
+                                <span>·</span>
+                                <span style="text-transform: capitalize;">${task.categoria}</span>
+                                <span>·</span>
+                                <span style="text-transform: capitalize;">Prioridad: ${task.priority || "normal"}</span>
                             </div>
+                            
                         </div>
                         <button class="done-task" type="button" data-id="${task.id}" style="background: #68d391; color: white; border-radius: 50%; width: 32px; height: 32px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-left: 10px;">✓</button>
                     </li>
@@ -140,8 +149,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const taskId = Number(doneButton.dataset.id);
         tasks = tasks.filter((task) => task.id !== taskId);
         saveTasks();
-        renderAgendaTasks(); 
+        renderAgendaTasks();
     });
 
     renderAgendaTasks();
+
 });

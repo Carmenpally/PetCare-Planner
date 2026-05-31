@@ -35,7 +35,7 @@
                 </button>
             </fieldset>
 
-            <form id="task-form" class="task-form" aria-label="Formulario para agregar nueva tarea">
+            <form id="task-form" class="task-form" aria-label="Formulario para agregar nueva tarea" hidden>
                 <div class="form-field">
                     <label for="task-pet">Mascota</label>
                     <select id="task-pet" name="task-pet" required>
@@ -69,6 +69,13 @@
         <aside class="preview-card" aria-labelledby="preview-title">
             <p class="eyebrow">Mascota Activa</p>
             <h2 id="preview-title">Estado de tu mascota</h2>
+
+            <div class="active-pet-field">
+                <label for="active-pet">Elegir mascota</label>
+                <select id="active-pet" name="active-pet">
+                    <option value="">Cargando mascotas...</option>
+                </select>
+            </div>
 
             <div id="contenedor-mascota-mayor"></div>
 
