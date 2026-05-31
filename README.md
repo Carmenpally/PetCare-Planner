@@ -45,9 +45,16 @@ proyecto-mayo/
 ├── INFORME_IA.md
 ├── assets/
 │   ├── css/
-│   │   └── styles.css
-│   └── js/
-│       └── main.js
+│   │   ├── styles.css
+│   │   ├── agenda.css
+│   │   └── perfil.css
+│   ├── js/
+│   │   ├── main.js
+│   │   ├── agenda.js
+│   │   ├── perfil.js
+│   │   └── theme.js
+│   └── img/
+│       └── my-icon.png
 └── pages/
     ├── agenda.html
     └── perfil.html

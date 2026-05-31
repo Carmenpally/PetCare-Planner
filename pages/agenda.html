@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agenda de Cuidados - PetCare Planner</title>
     <link rel="stylesheet" href="../assets/css/agenda.css">
-    
+    <link rel="icon" type="image/png" href="../assets/img/my-icon.png">
 </head>
 <body>
     
     <header>
         <nav>
-            <a href="../index.html"><strong>PetCare Planner</strong></a>
+            <a href="../index.html"><strong>🐾 PetCare Planner</strong></a>
             <ul>
                 <li><a href="../index.html">Inicio</a></li>
                 <li><a href="#" aria-current="page">Agenda de Cuidados</a></li>
@@ -28,10 +28,16 @@
             <p class="intro">Completa los datos para sumar una nueva actividad a la agenda de tu mascota.</p>
 
             <form id="form-actividad" class="task-form form-agenda" aria-label="Formulario para agendar nuevo cuidado">
-                
-                <!-- Categoría -->
+    
                 <div class="form-field campo-completo">
-                    <label>1. Selecciona la categoría</label>
+                    <label for="mascota-select">1. ¿Para qué mascota es?</label>
+                    <select id="mascota-select" name="mascota" required>
+                        <option value="" disabled selected>Cargando mascotas...</option>
+                        </select>
+                </div>
+
+                <div class="form-field campo-completo">
+                    <label>2. Selecciona la categoría</label>
                     <div class="categorias-grid">
                         <label class="categoria-btn"><input type="radio" name="categoria" value="vacunas" required> 💉 Vacunas</label>
                         <label class="categoria-btn"><input type="radio" name="categoria" value="paseos"> 🦮 Paseos</label>
@@ -42,19 +48,16 @@
                     </div>
                 </div>
 
-                <!-- Descripción -->
                 <div class="form-field campo-completo">
-                    <label for="descripcion">2. Descripción del cuidado</label>
+                    <label for="descripcion">3. Descripción del cuidado</label>
                     <input id="descripcion" name="descripcion" type="text" placeholder="Ej: Vacuna antirrábica anual" required>
                 </div>
 
-                <!-- Fecha -->
                 <div class="form-field campo-completo">
-                    <label for="fecha">3. Fecha programada</label>
+                    <label for="fecha">4. Fecha programada</label>
                     <input id="fecha" name="fecha" type="date" required>
                 </div>
 
-                <!-- Boton guardar -->
                 <button class="primary-action btn-guardar" type="submit">Guardar Actividad</button>
             </form>
         </section>

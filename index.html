@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PetCare Planner - Inicio</title>
     <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="icon" type="image/png" href="./assets/img/my-icon.png">
 </head>
 <body>
     <header>
         <nav>
-            <a href="index.html"><strong>PetCare Planner</strong></a>
+            <a href="index.html"><strong>🐾 PetCare Planner</strong></a>
             <ul>
                 <li><a href="index.html" aria-current="page">Inicio</a></li>
                 <li><a href="pages/agenda.html">Agenda de Cuidados</a></li>
@@ -35,6 +36,13 @@
             </fieldset>
 
             <form id="task-form" class="task-form" aria-label="Formulario para agregar nueva tarea">
+                <div class="form-field">
+                    <label for="task-pet">Mascota</label>
+                    <select id="task-pet" name="task-pet" required>
+                        <option value="" disabled selected>Cargando mascotas...</option>
+                        </select>
+                </div>
+
                 <div class="form-field form-field-large">
                     <label for="task-name">Cuidado</label>
                     <input id="task-name" name="task-name" type="text" placeholder="Ej: comida, paseo, medicación">
@@ -64,9 +72,11 @@
                 <h2 id="preview-title">Estado de tu mascota</h2>
             <!-- </header> -->
 
+            <div id="contenedor-mascota-mayor"></div>
+
             <p class="status-chip" role="status" aria-live="polite">
                 <span class="pulse-dot" aria-hidden="true"></span>
-                <span id="live-status">Luna - Todo al día hoy</span>
+                <span id="live-status">Revisando tareas...</span>
             </p>
 
             <figure id="pet-stage" class="pet-stage">
