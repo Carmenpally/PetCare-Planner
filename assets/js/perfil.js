@@ -85,19 +85,31 @@ document.addEventListener('DOMContentLoaded', () => {
     listaMascotasContainer.addEventListener('click', (evento) => {
         if (evento.target.classList.contains('btn-eliminar-mascota')) {
             const idMascota = Number(evento.target.dataset.id);
-            const confirmar = confirm("¿Estás seguro de que quieres eliminar a este compañero?");
             
-            if (confirmar) {
-                listaMascotas = listaMascotas.filter((mascota) => mascota.id !== idMascota);
-                
-                guardarMascotas();
-                renderMascotas();
-                
-                if (idMascotaEditando === idMascota) {
-                    limpiarFormulario();
-                }
+            listaMascotas = listaMascotas.filter((mascota) => mascota.id !== idMascota);
+            guardarMascotas();
+            renderMascotas();
+
+            const mensajeEliminacion = document.createElement('p');
+            mensajeEliminacion.textContent = "Compañero eliminado de la lista.";
+            mensajeEliminacion.style.color = "var(--rosa-fuerte)";
+            mensajeEliminacion.style.textAlign = "center";
+            mensajeEliminacion.style.marginBottom = "15px";
+            mensajeEliminacion.style.fontWeight = "bold";
+
+            const seccionLista = document.querySelector('.panel-lista-mascotas');
+
+            const titulo = seccionLista.querySelector('h2');
+            seccionLista.insertBefore(mensajeEliminacion, titulo.nextSibling);
+
+            setTimeout(() => {
+                mensajeEliminacion.remove();
+            }, 2000);
+            
+            if (idMascotaEditando === idMascota) {
+                limpiarFormulario();
             }
-            return; 
+            return;
         }
 
         const botonEditar = evento.target.closest('.btn-editar-mascota');
@@ -136,13 +148,9 @@ document.addEventListener('DOMContentLoaded', () => {
     formMascota.addEventListener('submit', (evento) => {
         evento.preventDefault();
 
-        // --- INICIO DEL CAMBIO ---
-        // 1. Obtenemos el texto sin espacios a los lados
         const nombreBruto = document.getElementById('pet-nombre').value.trim();
-        
-        // 2. Transformamos: Primera letra mayúscula + el resto en minúscula
+
         const nombre = nombreBruto ? nombreBruto.charAt(0).toUpperCase() + nombreBruto.slice(1).toLowerCase() : "";
-        // --- FIN DEL CAMBIO ---
 
         const especie = document.getElementById('pet-especie').value;
         const notas = document.getElementById('pet-notas').value.trim();
@@ -151,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const mascotaActualizada = {
             id: idMascotaEditando || Date.now(),
-            nombre, // Aquí ya se guarda con el formato correcto
+            nombre,
             especie,
             notas,
             nacimiento,
@@ -170,6 +178,14 @@ document.addEventListener('DOMContentLoaded', () => {
         guardarMascotas();
         renderMascotas();
         limpiarFormulario();
+
+        const mensajeRegistro = document.getElementById('mensaje-registro');
+        if (mensajeRegistro) {
+            mensajeRegistro.textContent = "¡Compañero/a registrado con éxito!";
+            setTimeout(() => {
+                mensajeRegistro.textContent = "";
+            }, 3000);
+        }
     });
 
     renderMascotas();

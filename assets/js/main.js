@@ -68,12 +68,15 @@ newTaskButton.addEventListener("click", () => {
 taskForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    const name = taskName.value.trim();
+    const nombreBruto = taskName.value.trim();
+    const name = nombreBruto ? nombreBruto.charAt(0).toUpperCase() + nombreBruto.slice(1).toLowerCase() : "";
+
     const date = taskDate.value;
+    const priority = taskPriority.value; 
     const mascotaAsignada = taskPet ? taskPet.value : "General"; 
 
     if (!name || !date || !mascotaAsignada) {
-        showMessage("Completá el cuidado, la fecha y la mascota.");
+        showMessage("Completá el cuidado, la fecha y la mascota.", "var(--rosa-fuerte)"); 
         return;
     }
 
@@ -81,13 +84,14 @@ taskForm.addEventListener("submit", (event) => {
         id: Date.now(),
         name,
         date,
+        priority, 
         mascota: mascotaAsignada 
     });
 
     saveTasks();
     renderTasks();
     taskForm.reset();
-    showMessage("Tarea guardada correctamente.");
+    showMessage("Tarea guardada correctamente.", "var(--verde)");
 });
 
 document.addEventListener("click", (event) => {
@@ -166,6 +170,8 @@ function createTaskItem(task) {
                     
                     <div style="display: flex; align-items: center; gap: 6px;">
                         <span>${formattedDate}</span>
+                        <span>·</span>
+                        <span style="text-transform: capitalize;">Prioridad: ${task.priority || "normal"}</span>
                     </div>
                 </div>
             </div>
@@ -194,8 +200,9 @@ function updateLiveStatus(todayTasks) {
     liveStatus.textContent = text;
 }
 
-function showMessage(message) {
+function showMessage(message, color = "var(--texto-principal)") {
     formMessage.textContent = message;
+    formMessage.style.color = color;
 
     window.setTimeout(() => {
         formMessage.textContent = "";

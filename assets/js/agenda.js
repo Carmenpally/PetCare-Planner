@@ -35,7 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
             event.preventDefault(); 
 
             const nombreBruto = inputDescripcion.value.trim();
-
             const nombre = nombreBruto ? nombreBruto.charAt(0).toUpperCase() + nombreBruto.slice(1).toLowerCase() : "";
 
             const fecha = inputFecha.value;
@@ -44,8 +43,14 @@ document.addEventListener("DOMContentLoaded", () => {
             const categoriaInput = document.querySelector('input[name="categoria"]:checked');
             const categoria = categoriaInput ? categoriaInput.value : "general";
 
+            const formMessage = document.querySelector("#form-message");
+
             if (!nombre || !fecha || !mascotaAsignada) {
-                alert("Por favor completa todos los campos, incluyendo la mascota.");
+                if (formMessage) {
+                    formMessage.textContent = "Por favor completa todos los campos, incluyendo la mascota.";
+                    formMessage.style.color = "var(--rosa-fuerte)"; 
+                    setTimeout(() => formMessage.textContent = "", 3000); 
+                }
                 return;
             }
 
@@ -61,8 +66,6 @@ document.addEventListener("DOMContentLoaded", () => {
             formActividad.reset();
             renderAgendaTasks();
 
-            
-            const formMessage = document.querySelector("#form-message");
             if (formMessage) {
                 formMessage.textContent = "¡Cuidado agendado correctamente!";
                 formMessage.style.color = "var(--verde)";
@@ -119,6 +122,8 @@ document.addEventListener("DOMContentLoaded", () => {
                                 
                                 <div style="display: flex; align-items: center; gap: 6px;">
                                     <span>${formattedDate}</span>
+                                    <span>·</span>
+                                    <span style="text-transform: capitalize;">${task.categoria}</span>
                                 </div>
                             </div>
                         </div>

@@ -59,6 +59,7 @@
                 </div>
 
                 <button class="primary-action btn-guardar" type="submit">Guardar Actividad</button>
+                <p id="form-message" class="form-message" role="status" style="margin-top: 10px; font-weight: bold;"></p>
             </form>
         </section>
 
@@ -70,46 +71,19 @@
             <!-- </header> -->
 
             <div class="contenedor-semaforo">
-                <!-- Atrasado -->
                 <article id="tareas-vencidas" class="card-estado card-atrasado">
                     <h3>Atrasado</h3>
-                    <ul class="task-list" data-task-group="vencidas">
-                        <li>
-                            <div>
-                                <strong>Vacuna Séxtuple</strong>
-                                <small>15/05/2026</small>
-                            </div>
-                            <div class="pulse-dot dot-atrasado"></div>
-                        </li>
-                    </ul>
+                    <ul class="task-list" data-task-group="vencidas"></ul>
                 </article>
 
-                <!-- Hoy -->
                 <article id="tareas-hoy" class="card-estado card-hoy">
                     <h3>Hoy</h3>
-                    <ul class="task-list" data-task-group="hoy">
-                        <li>
-                            <div>
-                                <strong>Paseo al parque</strong>
-                                <small>18:00 hs</small>
-                            </div>
-                            <div class="pulse-dot dot-hoy"></div>
-                        </li>
-                    </ul>
+                    <ul class="task-list" data-task-group="hoy"></ul>
                 </article>
 
-                <!-- Futuro -->
                 <article id="tareas-futuras" class="card-estado card-futuro">
                     <h3>Futuro</h3>
-                    <ul class="task-list" data-task-group="futuras">
-                        <li>
-                            <div>
-                                <strong>Turno Peluquería</strong>
-                                <small>05/06/2026</small>
-                            </div>
-                            <div class="pulse-dot dot-futuro"></div>
-                        </li>
-                    </ul>
+                    <ul class="task-list" data-task-group="futuras"></ul>
                 </article>
             </div>
         </aside>
