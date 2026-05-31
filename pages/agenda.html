@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,9 @@
     <link rel="stylesheet" href="../assets/css/agenda.css">
     <link rel="icon" type="image/png" href="../assets/img/my-icon.png">
 </head>
+
 <body>
-    
+
     <header>
         <nav>
             <a href="../index.html"><strong>🐾 PetCare Planner</strong></a>
@@ -28,29 +30,36 @@
             <p class="intro">Completa los datos para sumar una nueva actividad a la agenda de tu mascota.</p>
 
             <form id="form-actividad" class="task-form form-agenda" aria-label="Formulario para agendar nuevo cuidado">
-    
+
                 <div class="form-field campo-completo">
                     <label for="mascota-select">1. ¿Para qué mascota es?</label>
                     <select id="mascota-select" name="mascota" required>
                         <option value="" disabled selected>Cargando mascotas...</option>
-                        </select>
+                    </select>
                 </div>
 
                 <div class="form-field campo-completo">
                     <label>2. Selecciona la categoría</label>
                     <div class="categorias-grid">
-                        <label class="categoria-btn"><input type="radio" name="categoria" value="vacunas" required> 💉 Vacunas</label>
-                        <label class="categoria-btn"><input type="radio" name="categoria" value="paseos"> 🦮 Paseos</label>
-                        <label class="categoria-btn"><input type="radio" name="categoria" value="comidas"> 🍖 Comidas</label>
-                        <label class="categoria-btn"><input type="radio" name="categoria" value="banos"> 🛁 Baños</label>
-                        <label class="categoria-btn"><input type="radio" name="categoria" value="medicamentos"> 💊 Medicamentos</label>
-                        <label class="categoria-btn"><input type="radio" name="categoria" value="veterinario"> 🏥 Veterinario</label>
+                        <label class="categoria-btn"><input type="radio" name="categoria" value="vacunas" required> 💉
+                            Vacunas</label>
+                        <label class="categoria-btn"><input type="radio" name="categoria" value="paseos"> 🦮
+                            Paseos</label>
+                        <label class="categoria-btn"><input type="radio" name="categoria" value="comidas"> 🍖
+                            Comidas</label>
+                        <label class="categoria-btn"><input type="radio" name="categoria" value="banos"> 🛁
+                            Baños</label>
+                        <label class="categoria-btn"><input type="radio" name="categoria" value="medicamentos"> 💊
+                            Medicamentos</label>
+                        <label class="categoria-btn"><input type="radio" name="categoria" value="veterinario"> 🏥
+                            Veterinario</label>
                     </div>
                 </div>
 
                 <div class="form-field campo-completo">
                     <label for="descripcion">3. Descripción del cuidado</label>
-                    <input id="descripcion" name="descripcion" type="text" placeholder="Ej: Vacuna antirrábica anual" required>
+                    <input id="descripcion" name="descripcion" type="text" placeholder="Ej: Vacuna antirrábica anual"
+                        required>
                 </div>
 
                 <div class="form-field campo-completo">
@@ -58,16 +67,25 @@
                     <input id="fecha" name="fecha" type="date" required>
                 </div>
 
+                <div class="form-field campo-completo" style="grid-column: 1 / -1;">
+                    <label for="prioridad">5. Selecciona la prioridad</label>
+                    <select id="prioridad" name="prioridad" required>
+                        <option value="Normal">Normal</option>
+                        <option value="Alta">Alta</option>
+                    </select>
+                </div>
+
                 <button class="primary-action btn-guardar" type="submit">Guardar Actividad</button>
-                <p id="form-message" class="form-message" role="status" style="margin-top: 10px; font-weight: bold;"></p>
+                <p id="form-message" class="form-message" role="status" style="margin-top: 10px; font-weight: bold;">
+                </p>
             </form>
         </section>
 
         <!-- COLUMNA 2: Cronograma / Semáforo (Derecha) -->
         <aside class="preview-card columna-derecha" aria-labelledby="preview-title">
             <!-- <header class="preview-head"> -->
-                <p class="eyebrow">Cronograma General</p>
-                <h2 id="preview-title">Tus tareas</h2>
+            <p class="eyebrow">Cronograma General</p>
+            <h2 id="preview-title">Tus tareas</h2>
             <!-- </header> -->
 
             <div class="contenedor-semaforo">
@@ -97,4 +115,5 @@
     <!-- <script src="assets/js/main.js"></script> -->
     <script src="../assets/js/agenda.js"></script>
 </body>
+
 </html>
