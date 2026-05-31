@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const formActividad = document.querySelector("#form-actividad");
     const inputDescripcion = document.querySelector("#descripcion");
     const inputFecha = document.querySelector("#fecha");
-    const selectMascota = document.querySelector("#mascota-select"); 
+    const selectMascota = document.querySelector("#mascota-select");
 
     const storageKey = "petcareTasks";
     let tasks = JSON.parse(localStorage.getItem(storageKey)) || [];
@@ -32,14 +32,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (formActividad) {
         formActividad.addEventListener("submit", (event) => {
-            event.preventDefault(); 
+            event.preventDefault();
 
             const nombreBruto = inputDescripcion.value.trim();
             const nombre = nombreBruto ? nombreBruto.charAt(0).toUpperCase() + nombreBruto.slice(1).toLowerCase() : "";
 
             const fecha = inputFecha.value;
-            const mascotaAsignada = selectMascota.value; 
-            
+            const mascotaAsignada = selectMascota.value;
             const categoriaInput = document.querySelector('input[name="categoria"]:checked');
             const categoria = categoriaInput ? categoriaInput.value : "general";
 
@@ -59,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 name: nombre,
                 date: fecha,
                 categoria: categoria,
-                mascota: mascotaAsignada 
+                mascota: mascotaAsignada
             });
 
             saveTasks();
