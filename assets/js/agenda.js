@@ -1,49 +1,67 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Capturamos los elementos de tu HTML
     const formActividad = document.querySelector("#form-actividad");
     const inputDescripcion = document.querySelector("#descripcion");
     const inputFecha = document.querySelector("#fecha");
+    const selectMascota = document.querySelector("#mascota-select"); 
 
-    // ¡CLAVE! Usamos el mismo nombre que el archivo del inicio para compartir la memoria
     const storageKey = "petcareTasks";
-
-    // Cargamos las tareas guardadas o creamos un array vacío
     let tasks = JSON.parse(localStorage.getItem(storageKey)) || [];
 
-    // Función para guardar en localStorage
+    function cargarMascotas() {
+        const mascotasGuardadas = JSON.parse(localStorage.getItem('mascotas')) || [];
+        
+        if (mascotasGuardadas.length === 0) {
+            selectMascota.innerHTML = '<option value="" disabled selected>⚠️ Registra una mascota primero</option>';
+            return;
+        }
+
+        selectMascota.innerHTML = '<option value="" disabled selected>Elige a tu compañero...</option>';
+        
+        mascotasGuardadas.forEach(mascota => {
+            const option = document.createElement("option");
+            option.value = mascota.nombre;
+            option.textContent = mascota.nombre;
+            selectMascota.appendChild(option);
+        });
+    }
+    cargarMascotas();
+
     function saveTasks() {
         localStorage.setItem(storageKey, JSON.stringify(tasks));
     }
 
-    // 2. Evento cuando presionas "Guardar Actividad"
     if (formActividad) {
         formActividad.addEventListener("submit", (event) => {
-            event.preventDefault(); // Evitamos que la página se recargue
+            event.preventDefault(); 
 
-            const nombre = inputDescripcion.value.trim();
+            const nombreBruto = inputDescripcion.value.trim();
+
+            const nombre = nombreBruto ? nombreBruto.charAt(0).toUpperCase() + nombreBruto.slice(1).toLowerCase() : "";
+
             const fecha = inputFecha.value;
+            const mascotaAsignada = selectMascota.value; 
             
-            // Capturamos qué categoría (radio button) elegiste
             const categoriaInput = document.querySelector('input[name="categoria"]:checked');
             const categoria = categoriaInput ? categoriaInput.value : "general";
 
-            // Validamos que los datos existan
-            if (!nombre || !fecha) return;
+            if (!nombre || !fecha || !mascotaAsignada) {
+                alert("Por favor completa todos los campos, incluyendo la mascota.");
+                return;
+            }
 
-            // Agregamos la nueva tarea al array
             tasks.push({
                 id: Date.now(),
                 name: nombre,
                 date: fecha,
-                categoria: categoria
+                categoria: categoria,
+                mascota: mascotaAsignada 
             });
 
-            // Guardamos, limpiamos el formulario y actualizamos la pantalla
             saveTasks();
             formActividad.reset();
             renderAgendaTasks();
+
             
-            // Mensaje de éxito opcional (si tienes un p#form-message en tu HTML)
             const formMessage = document.querySelector("#form-message");
             if (formMessage) {
                 formMessage.textContent = "¡Cuidado agendado correctamente!";
@@ -53,7 +71,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 3. Función para dibujar las tarjetas en el Cronograma General
     function renderAgendaTasks() {
         const groups = {
             vencidas: [],
@@ -64,7 +81,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
 
-        // Clasificamos cada tarea según su fecha
         tasks.forEach((task) => {
             const taskDay = new Date(`${task.date}T00:00:00`);
 
@@ -77,7 +93,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // Inyectamos el HTML en los contenedores correspondientes
         Object.entries(groups).forEach(([groupName, groupTasks]) => {
             const list = document.querySelector(`[data-task-group="${groupName}"]`);
             if (!list) return;
@@ -92,20 +107,28 @@ document.addEventListener("DOMContentLoaded", () => {
                     day: "2-digit", month: "short"
                 });
 
+                const mascotaMostrada = task.mascota ? task.mascota : "General";
+
                 return `
-                    <li style="display: flex; justify-content: space-between; background: var(--panel-suave); padding: 10px; border-radius: 10px; margin-bottom: 8px;">
-                        <span>
-                            <strong>${task.name}</strong><br>
-                            <small style="color: var(--texto-suave);">${formattedDate} · Categoría: ${task.categoria}</small>
-                        </span>
-                        <button class="done-task" type="button" data-id="${task.id}" style="background: var(--verde); color: white; border-radius: 50%; width: 30px; height: 30px;">✓</button>
+                    <li style="display: flex; justify-content: space-between; align-items: center; background: var(--panel-suave); padding: 12px 16px; border-radius: 10px; margin-bottom: 10px;">
+                        <div style="display: flex; flex-direction: column; gap: 4px;">
+                            <strong style="font-size: 1.1rem; margin: 0; display: block; color: var(--texto-principal);">${task.name}</strong>
+                            
+                            <div style="display: flex; flex-direction: column; font-size: 0.85rem; color: var(--texto-suave);">
+                                <span style="margin-bottom: 2px;">Para: <span style="font-weight: bold;">${mascotaMostrada}</span></span>
+                                
+                                <div style="display: flex; align-items: center; gap: 6px;">
+                                    <span>${formattedDate}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="done-task" type="button" data-id="${task.id}" style="background: #68d391; color: white; border-radius: 50%; width: 32px; height: 32px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-left: 10px;">✓</button>
                     </li>
                 `;
             }).join("");
         });
     }
 
-    // 4. Funcionalidad para eliminar/marcar como completada una tarea
     document.addEventListener("click", (event) => {
         const doneButton = event.target.closest(".done-task");
         if (!doneButton) return;
@@ -113,9 +136,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const taskId = Number(doneButton.dataset.id);
         tasks = tasks.filter((task) => task.id !== taskId);
         saveTasks();
-        renderAgendaTasks(); // Volvemos a dibujar las listas
+        renderAgendaTasks(); 
     });
 
-    // Ejecutamos el renderizado apenas carga la página
     renderAgendaTasks();
 });

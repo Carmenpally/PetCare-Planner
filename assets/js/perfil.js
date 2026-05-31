@@ -136,7 +136,14 @@ document.addEventListener('DOMContentLoaded', () => {
     formMascota.addEventListener('submit', (evento) => {
         evento.preventDefault();
 
-        const nombre = document.getElementById('pet-nombre').value.trim();
+        // --- INICIO DEL CAMBIO ---
+        // 1. Obtenemos el texto sin espacios a los lados
+        const nombreBruto = document.getElementById('pet-nombre').value.trim();
+        
+        // 2. Transformamos: Primera letra mayúscula + el resto en minúscula
+        const nombre = nombreBruto ? nombreBruto.charAt(0).toUpperCase() + nombreBruto.slice(1).toLowerCase() : "";
+        // --- FIN DEL CAMBIO ---
+
         const especie = document.getElementById('pet-especie').value;
         const notas = document.getElementById('pet-notas').value.trim();
         const nacimiento = document.getElementById('pet-nacimiento').value;
@@ -144,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const mascotaActualizada = {
             id: idMascotaEditando || Date.now(),
-            nombre,
+            nombre, // Aquí ya se guarda con el formato correcto
             especie,
             notas,
             nacimiento,
