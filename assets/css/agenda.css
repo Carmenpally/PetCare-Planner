@@ -1,6 +1,3 @@
-/* =========================================
- 1. ESTILOS GLOBALES (El código de tu compañera)
-  ========================================= */
 :root {
     --fondo: #c8f4df;
     --panel: #fbfffd;
@@ -141,16 +138,16 @@ h2,
 h3 {
     line-height: 1.12; 
 }
-
+/*
 h1 {
-    /* max-width: 740px; */
-    /* font-size: clamp(38px, 5vw, 64px); */
+    max-width: 740px; 
+    font-size: clamp(38px, 5vw, 64px); 
 }
 
 h1 span {
-    color: var();
+    color: var(--rosa);
 }
-
+*/
 .intro {
     max-width: 690px;
     margin-top: 20px;
@@ -244,9 +241,7 @@ footer {
     text-align: center;
 }
 
-/* =========================================
-           2. ESTILOS ESPECÍFICOS DE LA AGENDA
-           ========================================= */
+/* ESTILOS ESPECÍFICOS DE LA AGENDA */
 #agenda-seccion {
     border: 1px solid var(--linea);
     border-radius: 26px;

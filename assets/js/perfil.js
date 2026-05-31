@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (listaMascotas.length === 0) {
             listaMascotasContainer.innerHTML = `
                 <li class="no-mascotas-msg" style="text-align: center; color: var(--texto-suave); padding: 20px;">
-                    <p>Aun no tienes companeros registrados. Agrega el primero!</p>
+                    <p>Aun no tienes compañeros registrados. Agrega el primero!</p>
                 </li>
             `;
             return;

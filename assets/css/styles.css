@@ -124,8 +124,7 @@ main {
 #bienvenida,
 .preview-card,
 #panel-tareas,
-#agenda-seccion,
-#perfil-seccion {
+#agenda-seccion{
     border: 1px solid var(--linea);
     border-radius: 26px;
     background: var(--panel-transparente);
@@ -615,8 +614,7 @@ footer {
     }
 }
 
-#agenda-seccion,
-#perfil-seccion {
+#agenda-seccion{
     grid-column: 1 / -1;
     min-height: 320px;
     padding: 44px;
