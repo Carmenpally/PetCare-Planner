@@ -63,7 +63,7 @@ proyecto-mayo/
 ## Links
 
 - Repositorio: https://github.com/Carmenpally/Proyecto2026
-- Deploy: pendiente
+- Deploy: https://carmenpally.github.io/PetCare-Planner/
 
 ## Documentación
 
