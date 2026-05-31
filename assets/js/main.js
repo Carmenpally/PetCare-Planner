@@ -6,10 +6,12 @@ const taskPet = document.querySelector("#task-pet");
 const formMessage = document.querySelector("#form-message");
 const newTaskButton = document.querySelector("#btn-nueva-tarea");
 const liveStatus = document.querySelector("#live-status");
+const activePetSelect = document.querySelector("#active-pet");
 
 const storageKeys = {
     tasks: "petcareTasks",
-    theme: "petcareTheme"
+    theme: "petcareTheme",
+    activePet: "petcareActivePet"
 };
 
 const defaultTasks = [
@@ -57,13 +59,43 @@ function cargarMascotasParaTareas() {
     });
 }
 
-newTaskButton.addEventListener("click", () => {
-    taskForm.classList.toggle("visible");
+function cargarMascotasActivas() {
+    if (!activePetSelect) return;
 
-    if (taskForm.classList.contains("visible")) {
-        taskName.focus();
+    const mascotasGuardadas = JSON.parse(localStorage.getItem('mascotas')) || [];
+
+    if (mascotasGuardadas.length === 0) {
+        activePetSelect.innerHTML = '<option value="">Registra una mascota en Perfil</option>';
+        localStorage.removeItem(storageKeys.activePet);
+        return;
     }
+
+    activePetSelect.innerHTML = "";
+
+    mascotasGuardadas.forEach(mascota => {
+        const option = document.createElement("option");
+        option.value = mascota.id;
+        option.textContent = mascota.nombre;
+        activePetSelect.appendChild(option);
+    });
+
+    const mascotaGuardada = localStorage.getItem(storageKeys.activePet);
+    const existeMascotaGuardada = mascotasGuardadas.some(mascota => String(mascota.id) === mascotaGuardada);
+
+    activePetSelect.value = existeMascotaGuardada ? mascotaGuardada : String(mascotasGuardadas[0].id);
+    localStorage.setItem(storageKeys.activePet, activePetSelect.value);
+}
+
+newTaskButton.addEventListener("click", () => {
+    window.location.href = "pages/agenda.html";
 });
+
+if (activePetSelect) {
+    activePetSelect.addEventListener("change", () => {
+        localStorage.setItem(storageKeys.activePet, activePetSelect.value);
+        renderTasks();
+    });
+}
 
 taskForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -116,6 +148,13 @@ function saveTasks() {
     localStorage.setItem(storageKeys.tasks, JSON.stringify(tasks));
 }
 
+function getMascotaActiva() {
+    const mascotasGuardadas = JSON.parse(localStorage.getItem('mascotas')) || [];
+    const mascotaActivaId = localStorage.getItem(storageKeys.activePet);
+
+    return mascotasGuardadas.find(mascota => String(mascota.id) === mascotaActivaId);
+}
+
 function renderTasks() {
     const groups = {
         vencidas: [],
@@ -126,7 +165,12 @@ function renderTasks() {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    tasks.forEach((task) => {
+    const mascotaActiva = getMascotaActiva();
+    const tareasFiltradas = mascotaActiva
+        ? tasks.filter(task => task.mascota === mascotaActiva.nombre)
+        : tasks;
+
+    tareasFiltradas.forEach((task) => {
         const taskDay = new Date(`${task.date}T00:00:00`);
 
         if (taskDay < today) {
@@ -149,7 +193,7 @@ function renderTasks() {
         list.innerHTML = groupTasks.map(createTaskItem).join("");
     });
 
-    updateLiveStatus(groups.hoy.length);
+    updateLiveStatus(groups.hoy);
 }
 
 function createTaskItem(task) {
@@ -181,21 +225,13 @@ function createTaskItem(task) {
 }
 
 function updateLiveStatus(todayTasks) {
-    const mascotasGuardadas = JSON.parse(localStorage.getItem('mascotas')) || [];
-    let nombreMascota = "Tu mascota"; 
+    const mascotaActiva = getMascotaActiva();
+    const nombreMascota = mascotaActiva ? mascotaActiva.nombre : "Tu mascota";
+    const tareasDeHoy = todayTasks.length;
 
-    if (mascotasGuardadas.length > 0) {
-        const mascotaMayor = mascotasGuardadas.reduce((mayor, actual) => {
-            const fechaMayor = new Date(mayor.nacimiento);
-            const fechaActual = new Date(actual.nacimiento);
-            return fechaActual < fechaMayor ? actual : mayor;
-        });
-        nombreMascota = mascotaMayor.nombre; 
-    }
-
-    const text = todayTasks === 0
+    const text = tareasDeHoy === 0
         ? `${nombreMascota} - Todo al día hoy`
-        : `${nombreMascota} - ${todayTasks} cuidado${todayTasks === 1 ? "" : "s"} pendiente${todayTasks === 1 ? "" : "s"} hoy`;
+        : `${nombreMascota} - ${tareasDeHoy} cuidado${tareasDeHoy === 1 ? "" : "s"} pendiente${tareasDeHoy === 1 ? "" : "s"} hoy`;
 
     liveStatus.textContent = text;
 }
@@ -217,6 +253,7 @@ function getDateWithOffset(days) {
 
 function init() {
     cargarMascotasParaTareas();
+    cargarMascotasActivas();
     renderTasks();
     saveTasks();
     

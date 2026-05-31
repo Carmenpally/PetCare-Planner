@@ -269,6 +269,28 @@ h1 span {
     font-size: 30px;
 }
 
+.active-pet-field {
+    display: grid;
+    gap: 8px;
+    margin-top: 18px;
+}
+
+.active-pet-field label {
+    color: var(--texto-suave);
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.active-pet-field select {
+    width: 100%;
+    min-height: 42px;
+    padding: 9px 12px;
+    border: 1px solid var(--linea);
+    border-radius: 12px;
+    color: var(--texto);
+    background: var(--panel);
+}
+
 .status-chip {
     display: inline-flex;
     align-items: center;
