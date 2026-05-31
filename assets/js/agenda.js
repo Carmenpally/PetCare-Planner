@@ -46,20 +46,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const prioridad = selectPrioridad ? selectPrioridad.value : "normal";
 
-            // const prioridadInput = document.querySelector("#prioridad");
-            // const prioridadSeleccionada = prioridadInput ? prioridadInput.value : "Normal";
-
-            // const formMessage = document.querySelector("#form-message");
-
-            // if (!nombre || !fecha || !mascotaAsignada) {
-            //     if (formMessage) {
-            //         formMessage.textContent = "Por favor completa todos los campos, incluyendo la mascota.";
-            //         formMessage.style.color = "var(--rosa-fuerte)"; 
-            //         setTimeout(() => formMessage.textContent = "", 3000); 
-            //     }
-            //     return;
-            // }
-
             const formMessage = document.querySelector("#form-message");
 
             if (!nombre || !fecha || !mascotaAsignada) {
@@ -77,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 date: fecha,
                 categoria: categoria,
                 mascota: mascotaAsignada,
-                priority: prioridad // <-- Agregamos esto
+                priority: prioridad 
             });
 
             saveTasks();
